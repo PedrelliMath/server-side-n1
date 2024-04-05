@@ -1,9 +1,9 @@
 import fastwsgi
 import os
 
-from config import settings
-from database import init_database
-from handler import Handler
+from src.config import settings
+from src.database import init_database
+from src.handler import Handler
 
 
 def app(environ, start_response):

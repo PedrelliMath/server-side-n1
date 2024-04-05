@@ -1,8 +1,8 @@
 import sqlite3
 
-from config import settings
-from exceptions import ClientNotFound, InsufficientBalance, SqliteError
-from model import Client, Transaction, TransactionType
+from src.config import settings
+from src.exceptions import ClientNotFound, InsufficientBalance, SqliteError
+from src.model import Client, Transaction, TransactionType
 
 def init_database(init_sql_file):
 

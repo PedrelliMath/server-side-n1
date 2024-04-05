@@ -53,7 +53,7 @@ de API que respondam requests HTTP.
 Cada rinha possue uma específicação diferente e a em questão foi realizada no mês
 de fevereiro de 2024.
 
-[Mais detalhes em](https://github.com/zanfranceschi/rinha-de-backend-2024-q1)
+[Mais detalhes da rinha aqui](https://github.com/zanfranceschi/rinha-de-backend-2024-q1)
 
 ### Específicação da rinha
 
