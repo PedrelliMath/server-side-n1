@@ -1,0 +1,8 @@
+#!/home/matheus/faculdade/server-side/python_projects/wsgi_handler/venv/bin/python
+# -*- coding: utf-8 -*-
+import re
+import sys
+from fastwsgi import run_from_cli
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(run_from_cli())
