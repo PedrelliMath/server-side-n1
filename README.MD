@@ -147,7 +147,7 @@ Onde
 
 ## COMO O CÓDIGO FUNCIONA
 
-### `/src/'
+### `src/`
 
 ### `wsgi.py`
 
@@ -182,33 +182,103 @@ Esse arquivo possue algumas classes de erros que serão levantados pelas funçõ
 
 Cria variáveis de ambiente para facilitar a importação das funções.
 
-## `/test/'
+## `test/``
 
 ### `test_models.py`
 
 Contém testes para testar a criação das classes de Transações e Clientes.
 
-## `/.github/workflows'
+## `.github/workflows/`
 
 ### `tests.yml`
 
 Contém um job para ser executado no github actions, esse job testa a criação das classes Transaction e Client,
 caso ocorra um erro, o commit para a branch main é bloquado.
 
+## COMO INSTALAR
 
+* Clone o este repositório na sua máquina
 
+```
+git clone https://codeberg.org/PedrelliMath/server-side-n1.git
+```
 
+* Entre no diretório do respitório
 
+```
+cd server-side-n1
+```
 
+* Crie um ambiente virtual
 
+```
+python -m venv venv
+```
 
+* Ative o ambiente virtual
 
+```
+source venv/bin/activate
+```
 
+* Instale as depências do projeto
 
+```
+pip install -r requirements.txt
+```
 
+* Instale se quiser o pytest pelas depências de desenvolvimento
 
+```
+pip install -r requirements-dev.txt
+```
 
+## COMO RODAR O SERVIDOR WEB
 
+* Execute o arquivo `wsgi.py`, isso vai criar uma instância do servidor web FastWSGI
 
+```
+➜ python wsgi.py 
+FastWSGI server running on PID: 141019
+FastWSGI server listening at http://0.0.0.0:9999
 
+```
 
+## COMO FAZER REQUISIÇÕES
+
+* Utilize um cliente para fazer requisições como Curl, httpie, postman, etc. Estou usando httpie
+
+### CRIANDO TRANSAÇÃO CRÉDITO
+
+* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` passando no corpo da requisição o JSON com os dados.
+
+A resposta deve se parecer com isso:
+
+```
+➜ ht -v 0.0.0.0:9999/clientes/3/transacoes valor=100 tipo="c" descricao="teste"
+
+POST /clientes/3/transacoes HTTP/1.1
+Accept-Encoding: gzip
+Content-Length: 46
+Content-Type: application/json
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+{
+    "descricao": "teste",
+    "tipo": "c",
+    "valor": "100"
+}
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 31
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 21:40:10 GMT
+
+{
+    "limite": -1000000,
+    "saldo": 200
+}
+
+```

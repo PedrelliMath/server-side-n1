@@ -4,9 +4,9 @@ import orjson
 from http import HTTPStatus
 from pydantic import ValidationError
 
-from src.database import add_transaction, get_client
-from src.exceptions import ClientNotFound, InsufficientBalance, SqliteError
-from src.model import Transaction, Error
+from database import add_transaction, get_client
+from exceptions import ClientNotFound, InsufficientBalance, SqliteError
+from model import Transaction, Error
 
 get_client_url = re.compile(r"/clientes/\d+/extrato")
 add_transaction_url = re.compile(r"/clientes/\d+/transacoes")
