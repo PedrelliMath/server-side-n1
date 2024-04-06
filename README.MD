@@ -493,9 +493,7 @@ Criei uma implementação básica de um job para rodar no github actions, os pus
         {
             "id": 8571594964,
             "name": "Run Tests",
-            "node_id": "WFR_kwLOLqTcRM8AAAAB_ugo1A",
             "head_branch": "main",
-            "head_sha": "a05b9f49bb565c8a3b5b2df10d9500de26efc04f",
             "path": ".github/workflows/tests.yml",
             "display_title": "actions melhorado",
             "run_number": 2,
