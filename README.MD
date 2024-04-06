@@ -182,7 +182,7 @@ Esse arquivo possue algumas classes de erros que serão levantados pelas funçõ
 
 Cria variáveis de ambiente para facilitar a importação das funções.
 
-## `test/``
+## `test/`
 
 ### `test_models.py`
 
@@ -241,16 +241,15 @@ pip install -r requirements-dev.txt
 ➜ python wsgi.py 
 FastWSGI server running on PID: 141019
 FastWSGI server listening at http://0.0.0.0:9999
-
 ```
 
 ## COMO FAZER REQUISIÇÕES
 
 * Utilize um cliente para fazer requisições como Curl, httpie, postman, etc. Estou usando httpie
 
-### CRIANDO TRANSAÇÃO CRÉDITO
+### CRIANDO TRANSAÇÃO CRÉDITO VAĹIDA
 
-* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` passando no corpo da requisição o JSON com os dados.
+* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` trocando {id} pelo id do cliente e passando no corpo da requisição o JSON com os dados.
 
 A resposta deve se parecer com isso:
 
@@ -280,5 +279,186 @@ Date: Sat, 6 Apr 2024 21:40:10 GMT
     "limite": -1000000,
     "saldo": 200
 }
+```
+
+O saldo cliente era 100 e aumentou para 200
+
+### CRIANDO TRANSAÇÃO DÉBITO VÁLIDA
+
+* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` trocando {id} pelo id do cliente e passando no corpo da requisição o JSON com os dados.
+
+Se houver limite, a resposta deve se parecer com isso:
 
 ```
+➜ ht -v 0.0.0.0:9999/clientes/3/transacoes valor=100 tipo="d" descricao="teste"
+
+POST /clientes/3/transacoes HTTP/1.1
+Accept-Encoding: gzip
+Content-Length: 46
+Content-Type: application/json
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+{
+    "descricao": "teste",
+    "tipo": "d",
+    "valor": "100"
+}
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 31
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 21:46:28 GMT
+
+{
+    "limite": -1000000,
+    "saldo": 100
+}
+```
+
+O saldo era 200 e voltou para 100
+
+### CRIANDO TRANSAÇÃO DÉBITO INVÁLIDA
+
+* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` trocando {id} pelo id do cliente e passando no corpo da requisição o JSON com os dados e coloque o valor a debitar maior que o saldo + limite
+
+A resposta deve se parecer com isso:
+
+```
+➜ ht -v 0.0.0.0:9999/clientes/3/transacoes valor=2000000 tipo="d" descricao="teste"
+
+POST /clientes/3/transacoes HTTP/1.1
+Accept-Encoding: gzip
+Content-Length: 50
+Content-Type: application/json
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+{
+    "descricao": "teste",
+    "tipo": "d",
+    "valor": "2000000"
+}
+
+HTTP/1.1 422 UNPROCESSABLE_ENTITY
+Connection: keep-alive
+Content-Length: 41
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 21:50:39 GMT
+
+{
+    "code": 3,
+    "message": "saldo insuficiente"
+}
+```
+
+422 UNPROCESSABLE_ENTITY é o http response que significa que os dados foram recebidos mas não podem ser processados devido à uma falha de validação
+
+### SOLICITANDO HISTÓRICO DE TRANSAÇÕES
+
+* Faça uma requisição `GET` em `http://0.0.0.0:9999/clientes/{id}/extrato` trocando {id} pelo id do cliente.
+
+A resposta deve se parecer com isso:
+
+```
+➜ ht -v 0.0.0.0:9999/clientes/3/extrato
+
+GET /clientes/3/extrato HTTP/1.1
+Accept-Encoding: gzip
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 374
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 21:56:08 GMT
+
+{
+    "saldo": {
+        "total": 100,
+        "data_extrato": "2024-04-06T21:56:08.770221",
+        "limite": 1000000
+    },
+    "ultimas_transacoes": [
+        {
+            "valor": 100,
+            "tipo": "d",
+            "descricao": "teste",
+            "realizada_em": "2024-04-06T21:56:08.770144"
+        },
+        {
+            "valor": 100,
+            "tipo": "c",
+            "descricao": "teste",
+            "realizada_em": "2024-04-06T21:56:08.770169"
+        }
+    ]
+}
+```
+O histórico está limitado em 10 transações
+
+### ENVIANDO JSON INVÁLIDO
+
+* Faça uma requisição com método `POST` em `http://0.0.0.0:9999/clientes/{id}/transacoes` trocando {id} pelo id do cliente e passando no corpo da requisição o JSON com campos inválidos.
+
+A resposta deve se parecer com isso:
+
+```
+➜ ht -v 0.0.0.0:9999/clientes/3/transacoes alor=2000000 tipo="d" descricao="teste"
+
+POST /clientes/3/transacoes HTTP/1.1
+Accept-Encoding: gzip
+Content-Length: 49
+Content-Type: application/json
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+{
+    "alor": "2000000",
+    "descricao": "teste",
+    "tipo": "d"
+}
+
+HTTP/1.1 400 BAD_REQUEST
+Connection: keep-alive
+Content-Length: 54
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 22:00:06 GMT
+
+{
+    "code": 1,
+    "message": "dados inválidos da transação"
+}
+```
+400 BAD_REQUEST é o http response significa que o cliete enviou dados incorretos
+
+### SOLICITANDO UM ENDPOINT INVÁLIDO
+
+* Faça uma requisição com método `GET` em `http://0.0.0.0:9999/{qualquer-coisa-aqui}`
+
+A resposta deve se parecer com isso:
+
+```
+➜ ht -v 0.0.0.0:9999/teste
+
+GET /teste HTTP/1.1
+Accept-Encoding: gzip
+Host: 0.0.0.0:9999
+User-Agent: httpie-go/0.7.0
+
+
+HTTP/1.1 404 NOT_FOUND
+Connection: keep-alive
+Content-Length: 42
+Content-Type: application/json
+Date: Sat, 6 Apr 2024 22:03:26 GMT
+
+{
+    "code": 4,
+    "message": "url não encontrada"
+}
+```
+404 NOT_FOUND é o http response que significa que o cliente tentou acessar o um recurso que não existe
