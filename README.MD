@@ -196,6 +196,26 @@ Contém testes para testar a criação das classes de Transações e Clientes.
 Contém um job para ser executado no github actions, esse job testa a criação das classes Transaction e Client,
 caso ocorra um erro, o commit para a branch main é bloquado.
 
+## MODELO DO BANCO DE DADOS
+
+O banco de dados possue 2 tabelas, uma para clientes e outra para transações
+
+### Tabela `clientes`
+
+| id | limite  | saldo |
+|----|---------|-------|
+| 1  | -100000 | 0     |
+| 2  | -80000  | 0     |
+| 3  | -1000000| 0     |
+| 4  | -10000000| 0    |
+| 5  | -500000 | 0     |
+
+### Tabela `transactions`
+
+| id_cliente | valor | tipo | descricao | realizada_em |
+|------------|-------|------|-----------|--------------|
+|            |       |      |           |              |
+
 ## COMO INSTALAR
 
 * Clone o este repositório na sua máquina
@@ -434,7 +454,7 @@ Date: Sat, 6 Apr 2024 22:00:06 GMT
     "message": "dados inválidos da transação"
 }
 ```
-400 BAD_REQUEST é o http response significa que o cliete enviou dados incorretos
+400 BAD_REQUEST é o http response que significa que o cliete enviou dados incorretos
 
 ### SOLICITANDO UM ENDPOINT INVÁLIDO
 
