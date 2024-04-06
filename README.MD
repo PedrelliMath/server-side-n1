@@ -11,11 +11,15 @@ O Handler WSGI inclui funcionalidades básicas para realizar transações financ
 
 ## Mod_python
 
+![mod_python](https://modpython.org/mp_long.gif)
+
 O mod_python é um módulo do Apache que permite executar código python no lado do servidor
 fazendo com que o web app python tenha acesso aos recursor do Apache, porém não ganhou
 tanta popularidade quanto o WSGI pois era difícil de implementar e manter.
 
 ## WSGI
+
+![wsgi](https://assets.toptal.io/images?url=https%3A%2F%2Fbs-uploads.toptal.io%2Fblackfish-uploads%2Fuploaded_file%2Ffile%2F192775%2Fimage-1582505123212-d71812e36fd836399c48a034f9e70128.png)
 
 WSGI é uma especificação que padroniza a comunicação entre servidores e aplicações web,
 desta forma, as aplicações podem ser desenvolvidas independente do servidor, permitindo
@@ -25,6 +29,7 @@ web diferentes, desde que todos implementem a específicação
 A PEP 333, escrita por `Phillip J. Eby` , lançada em `22 de fevereiro de 2003` e entitulado
 `"Python Web Server Gateway Interface (WSGI)"`, define a específicação WSGI.
 
+[Mais detalhes da PEP333 aqui](https://peps.python.org/pep-0333/)
 
 ## COMO FUNCIONA?
 
