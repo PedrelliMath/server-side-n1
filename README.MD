@@ -47,6 +47,8 @@ os cabeçalhos da resposta e depois, retorna um `ITERÁVEL DE BYTES` com os dado
 
 ## RINHA DE BACKEND 2024 Q1
 
+![rinha](https://github.com/zanfranceschi/rinha-de-backend-2024-q1/blob/main/misc/arte.jpg)
+
 A rinha de backend é um evento de programação competitiva que busca comparar implementações
 de API que respondam requests HTTP.
 
@@ -138,7 +140,63 @@ Onde
     - `descricao` deve ser a descrição informada durante a transação.
     - `realizada_em` deve ser a data/hora da realização da transação.
 
-## COMO RODAR O CÓDIGO
+## COMO O CÓDIGO FUNCIONA
+
+### `/src/'
+
+### `wsgi.py`
+
+Esse arquivo cria uma instância de FastWSGI, um servidor web wsgi, passando como parâmetros a função `app`
+que irá lidar com a requisição.
+
+Essa função cria uma instância de um objeto `Handler` e chama o método `run()`.
+
+### `handler.py`
+
+Esse arquivo possui a definição da classe `Handler`, esta classe possuí `run()` para receber requisições, `_add_transaction()` e  `_get_client()` para lidar com as requisições acessando o banco de dados e `_make_response()` para retornar a resposta para o servidor web FastWSGI.
+
+`_make_response(http_status, response_body)` recebe como parâmetros o http status gerado pelas funções de acesso ao banco de dados, e a resposta à ser enviada, executa `start_response` enviando os cabeçalhos como descreve na específicação, e retorna um iterável de bytes com o corpo da resposta. 
+
+### `database.py`
+
+Esse arquivo possuí as funções de acesso ao banco de dados para realizar a busca do histórico de transações do cliente e realizar a inserção de uma nova transação. Caso ocorra algum tipo de violação, de acordo com a específicação, as funções levantam as respectivas exeções. 
+
+### `model.py`
+
+Esse arquivo possui os classes do domínio da aplicação, que são Clientes e Transaçõe. Quando chega uma requisição, ocorre uma tentativa de criar um objeto a partir dessas classes, caso não seja possível, significa que os dados enviados estão incorretos e é retornado status de erro. Além de tamber contarem com métodos de serialização para facilitar o modelo de retorno de dados como solicitado na específicação. 
+
+### `config.py`
+
+Esse arquivo possuí algumas configurações do servidor web e do banco de dados, como o caminho para o arquivo do banco e em qual porta e qual host o servidor web estará esperando requisições.
+
+### `exceptions.py`
+
+Esse arquivo possue algumas classes de erros que serão levantados pelas funções no arquivo `database.py`.
+
+### `__init__.py`
+
+Cria variáveis de ambiente para facilitar a importação das funções.
+
+## `/test/'
+
+### `test_models.py`
+
+Contém testes para testar a criação das classes de Transações e Clientes.
+
+## `/.github/workflows'
+
+### `tests.yml`
+
+Contém um job para ser executado no github actions, esse job testa a criação das classes Transaction e Client,
+caso ocorra um erro, o commit para a branch main é bloquado.
+
+
+
+
+
+
+
+
 
 
 
