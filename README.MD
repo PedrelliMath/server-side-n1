@@ -20,6 +20,7 @@ tanta popularidade quanto o WSGI pois era difícil de implementar e manter.
 ## WSGI
 
 ![wsgi](https://assets.toptal.io/images?url=https%3A%2F%2Fbs-uploads.toptal.io%2Fblackfish-uploads%2Fuploaded_file%2Ffile%2F192775%2Fimage-1582505123212-d71812e36fd836399c48a034f9e70128.png)
+fonte: [https://www.toptal.com/python/pythons-wsgi-server-application-interface](https://www.toptal.com/python/pythons-wsgi-server-application-interface)
 
 WSGI é uma especificação que padroniza a comunicação entre servidores e aplicações web,
 desta forma, as aplicações podem ser desenvolvidas independente do servidor, permitindo
