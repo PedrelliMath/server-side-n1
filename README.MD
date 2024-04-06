@@ -462,3 +462,47 @@ Date: Sat, 6 Apr 2024 22:03:26 GMT
 }
 ```
 404 NOT_FOUND é o http response que significa que o cliente tentou acessar o um recurso que não existe
+
+## TESTES
+
+Para realizar os testes digite o comando `pytest -v` na raiz do projeto
+
+```
+➜ pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.11.5, pytest-8.1.1, pluggy-1.4.0 -- /home/matheus/faculdade/server-side/python_projects/wsgi_handler/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/matheus/faculdade/server-side/python_projects/wsgi_handler
+plugins: mock-3.14.0, cov-5.0.0
+collected 3 items                                                              
+
+test/test_models.py::test_transaction_model PASSED                       [ 33%]
+test/test_models.py::test_client_model PASSED                            [ 66%]
+test/test_models.py::test_error_model PASSED                             [100%]
+
+============================== 3 passed in 0.10s ===============================
+```
+Os testes criam instâncias cliente, transaction, e erros.
+
+## CI/CD
+
+Criei uma implementação básica de um job para rodar no github actions, os pushs que serão feitos para o github e não para o codeberg, serão testados antes de subirem, segue o resultado:
+
+```
+"workflow_runs": [
+        {
+            "id": 8571594964,
+            "name": "Run Tests",
+            "node_id": "WFR_kwLOLqTcRM8AAAAB_ugo1A",
+            "head_branch": "main",
+            "head_sha": "a05b9f49bb565c8a3b5b2df10d9500de26efc04f",
+            "path": ".github/workflows/tests.yml",
+            "display_title": "actions melhorado",
+            "run_number": 2,
+            "event": "push",
+            "status": "completed",
+            "conclusion": "success",
+            "workflow_id": 92563419,
+        }
+]
+```

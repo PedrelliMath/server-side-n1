@@ -2,3 +2,7 @@ venv
 database.db
 __pycache__
 .pytest_cache
+
+
+http --auth PedrelliMath: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 \
+  https://api.github.com/repos/PedrelliMath/server-side-n1/actions/runs
