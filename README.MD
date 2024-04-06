@@ -47,7 +47,7 @@ os cabeçalhos da resposta e depois, retorna um `ITERÁVEL DE BYTES` com os dado
 
 ## RINHA DE BACKEND 2024 Q1
 
-![rinha](https://github.com/zanfranceschi/rinha-de-backend-2024-q1/blob/main/misc/arte.jpg)
+![rinha](https://raw.githubusercontent.com/zanfranceschi/rinha-de-backend-2024-q1/main/misc/arte.jpg)
 
 A rinha de backend é um evento de programação competitiva que busca comparar implementações
 de API que respondam requests HTTP.
