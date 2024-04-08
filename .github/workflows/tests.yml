@@ -36,22 +36,3 @@ jobs:
             echo "Tests failed. Rejecting commit."
             exit 1
           fi
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Render CLI
-        run: |
-          curl -sL https://render.com/install.sh | bash
-
-      - name: Configure Render CLI
-        run: env render configure --token $env.RENDER_API_KEY
-
-      - name: Deploy to Render
-        run: env render up --force
