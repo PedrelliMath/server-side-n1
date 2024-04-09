@@ -13,6 +13,8 @@ no curso de Engenhearia de Software pela Universidade Católica de Santa Catarin
 
 * [Httpie](https://httpie.io/docs): Cliente HTTP para testar as requisições.
 
+* [dbdiagram.io](https://dbdiagram.io/): Ferramenta gráfica modelagem banco de dados
+
 * [Sqlite3](https://www.sqlite.org/docs.html): Banco de dados.
 
 * [pytest](https://docs.pytest.org/en/8.0.x/): Framework de testes.
@@ -231,6 +233,10 @@ O banco de dados possue 2 tabelas, uma para clientes e outra para transações
 | id_cliente | valor | tipo | descricao | realizada_em |
 |------------|-------|------|-----------|--------------|
 |            |       |      |           |              |
+
+### Cardinalidade
+
+![Modelagem-banco](./assets/Modelagem_Banco.svg)
 
 ## COMO INSTALAR
 
