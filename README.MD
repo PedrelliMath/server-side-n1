@@ -218,7 +218,7 @@ caso ocorra um erro, o commit para a branch main é bloquado.
 
 O banco de dados possue 2 tabelas, uma para clientes e outra para transações
 
-### Tabela `clientes`
+### Tabela `Clientes`
 
 | id | limite  | saldo |
 |----|---------|-------|
@@ -228,7 +228,7 @@ O banco de dados possue 2 tabelas, uma para clientes e outra para transações
 | 4  | -10000000| 0    |
 | 5  | -500000 | 0     |
 
-### Tabela `transactions`
+### Tabela `Transacoes`
 
 | id_cliente | valor | tipo | descricao | realizada_em |
 |------------|-------|------|-----------|--------------|
