@@ -3,6 +3,22 @@
 Conteúdo apresentado para obtenção de nota na matéria de Server Side
 no curso de Engenhearia de Software pela Universidade Católica de Santa Catarina.
 
+## TECNOLOGIAS UTILIZADAS
+
+* [python 3.11.5](https://docs.python.org/3.11/download.html): Linguagem de programação e versão do interpretador. 
+
+* [pydantic](https://docs.pydantic.dev/latest/): Validação e serialização dos dados.
+
+* [FastWSGI](https://pypi.org/project/fastwsgi/): Servidor WEB WSGI.
+
+* [Httpie](https://httpie.io/docs): Cliente HTTP para testar as requisições.
+
+* [Sqlite3](https://www.sqlite.org/docs.html): Banco de dados.
+
+* [pytest](https://docs.pytest.org/en/8.0.x/): Framework de testes.
+
+* [Render](https://render.com/): Cloud para deploy da API.
+
 ## RESUMO
 
 Este repositório apresenta uma implementação simples de um Handler WSGI que permite 
@@ -507,21 +523,12 @@ Os testes criam instâncias cliente, transaction, e erros.
 
 ## CI/CD
 
-Criei uma implementação básica de um job para rodar no github actions, os pushs que serão feitos para o github e não para o codeberg, serão testados antes de subirem, segue o resultado:
+Subi a api em um serviço de cloud gratuito chamado Render.com, com 0,1 cpus e 512MB de ram, com isso, criei uma implementação básica de um job para rodar no github actions, os pushs que serão feitos para o github e não para o codeberg, serão testados antes de subirem, e caso passem, a versão de deploy no Render irá ser atualizada. 
 
-```
-"workflow_runs": [
-        {
-            "id": 8571594964,
-            "name": "Run Tests",
-            "head_branch": "main",
-            "path": ".github/workflows/tests.yml",
-            "display_title": "actions melhorado",
-            "run_number": 2,
-            "event": "push",
-            "status": "completed",
-            "conclusion": "success",
-            "workflow_id": 92563419,
-        }
-]
-```
+### Actions no github:
+
+![print-actions-github](./assets/actions-github.png)
+
+### Deploy cloud Render.com:
+
+![print-deploy-render](./assets/deploy-render.png)
